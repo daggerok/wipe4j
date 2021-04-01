@@ -1,0 +1,28 @@
+{
+  "name": "docs",
+  "version": "0.0.1",
+  "description": "JVM projects cleaner analyzer",
+  "main": "index.js",
+  "authors": {
+    "name": "Maksim Kostromin",
+    "email": "daggerok@gmail.com"
+  },
+  "repository": {
+    "url": "https://github.com/daggerok/wipe4j",
+    "directory": "docs"
+  },
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src",
+    "ci": "cross-env BASE=/wipe4j/ vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "1.5.3"
+  },
+  "dependencies": {
+    "@types/node": "14.14.37",
+    "cross-env": "7.0.3",
+    "vuepress-theme-default-prefers-color-scheme": "2.0.0"
+  }
+}
