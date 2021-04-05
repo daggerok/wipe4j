@@ -1,4 +1,4 @@
-const { description, repository } = require('../../package.json')
+const { name: title, description, repository } = require('../../package.json')
 const base = process.env.BASE || '/';
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'wipe4j documentation',
+  title,
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */

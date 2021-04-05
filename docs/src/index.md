@@ -1,15 +1,19 @@
 ---
+
 home: true
 heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: wiper4j - jvm projects cleaner analyzer documentation
-actionText: Quick Start →
+
+tagline: JVM projects cleaner analyzer
+
+actionText: Getting Started →
 actionLink: /guide/
+
 features:
-- title: Feature 1 Title
-  details: Feature 1 Description
-- title: Feature 2 Title
-  details: Feature 2 Description
-- title: Feature 3 Title
-  details: Feature 3 Description
-footer: Made by Maksim Kostromin with ❤️
+- title: Search
+  details: Want to clean up your laptop drive? Search if there are some build output folders you can wipe  
+- title: Wipe
+  details: Disable "dry run" option to clean up all found folders afterall
+
+footer: Made by Maksim Kostromin with ❤️ 🤘
+
 ---
