@@ -1,4 +1,6 @@
 ### IntelliJ IDEA ###
+target/
+!**/ProjectScannerTest/should_*/target/**
 .idea
 !.idea/
 .idea/*
@@ -14,7 +16,6 @@
 *.ipr
 *.log*
 .gradle/
-target/
 build/
 /out/
 **/out/**
