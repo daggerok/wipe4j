@@ -9,6 +9,28 @@
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>JVM local filesystem projects cleaner analyzer - wipe4j</description>
+  <url>https://github.com/daggerok/wipe4j</url>
+  <developers>
+    <developer>
+      <name>Maksim Kostromin</name>
+      <email>daggerok@gmail.com</email>
+      <organization>Sets of open source Maksim Kostromin aka daggerok projects</organization>
+      <organizationUrl>https://github.com/daggerok</organizationUrl>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://github.com/daggerok/wipe4j/blob/master/LICENSE</url>
+    </license>
+  </licenses>
+  <scm>
+    <developerConnection>scm:git:git@github.com:daggerok/wipe4j.git</developerConnection>
+    <connection>scm:git:https://github.com/daggerok/wipe4j.git</connection>
+    <url>https://github.com/daggerok/wipe4j</url>
+    <!-- <tag>master</tag> -->
+    <tag>HEAD</tag>
+  </scm>
   <modules>
     <module>docs</module>
     <module>wipe4j-core</module>
@@ -134,4 +156,18 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>local-deploy</id>
+      <build><!-- ./mvnw -P local-deploy -->
+        <defaultGoal>clean deploy</defaultGoal>
+      </build>
+      <distributionManagement>
+        <repository>
+          <id>local-maven-repo</id>
+          <url>file://${maven.multiModuleProjectDirectory}/target/.m2/repository</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+  </profiles>
 </project>
