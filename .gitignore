@@ -19,6 +19,7 @@ target/
 build/
 /out/
 **/out/**
+.mvn/settings.xml
 
 ### Node JS ###
 node_modules/
