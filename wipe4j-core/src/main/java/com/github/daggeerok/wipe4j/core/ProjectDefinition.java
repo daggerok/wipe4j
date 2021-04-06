@@ -1,4 +1,4 @@
-package com.github.daggeerok.wipe4j.core.project;
+package com.github.daggeerok.wipe4j.core;
 
 import java.util.List;
 

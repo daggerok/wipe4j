@@ -24,6 +24,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Cleanup local system cache
+      run: sudo rm -rf ~/.m2/repository/com/github/daggerok
+    - name: Install required local modules first
+      run: ./mvnw -f wipe4j-core install
     - name: Resolve maven dependencies
       run: ./mvnw -B dependency:resolve-plugins dependency:resolve
     - name: Clean maven projects
