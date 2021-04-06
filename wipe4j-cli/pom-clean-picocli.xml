@@ -8,7 +8,7 @@
     <version>0.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>wipe4j-core</artifactId>
+  <artifactId>wipe4j-cli</artifactId>
   <modelVersion>4.0.0</modelVersion>
   <dependencies>
     <dependency>

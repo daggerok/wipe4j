@@ -19,6 +19,7 @@
     <encoding>UTF-8</encoding>
     <java.version>11</java.version>
     <vavr.version>0.10.3</vavr.version>
+    <picocli.version>4.6.1</picocli.version>
     <spring-boot.version>2.4.4</spring-boot.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -29,6 +30,12 @@
   </properties>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.github.daggerok.wipe4j</groupId>
+        <artifactId>wipe4j-core</artifactId>
+        <version>${project.version}</version>
+        <type>jar</type>
+      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -42,6 +49,18 @@
         <version>${vavr.version}</version>
         <type>jar</type>
       </dependency>
+      <dependency>
+        <groupId>info.picocli</groupId>
+        <artifactId>picocli</artifactId>
+        <version>${picocli.version}</version>
+        <type>jar</type>
+      </dependency>
+      <dependency>
+        <groupId>info.picocli</groupId>
+        <artifactId>picocli-spring-boot-starter</artifactId>
+        <version>${picocli.version}</version>
+        <type>jar</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -50,6 +69,16 @@
       <artifactId>lombok</artifactId>
       <optional>true</optional>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>

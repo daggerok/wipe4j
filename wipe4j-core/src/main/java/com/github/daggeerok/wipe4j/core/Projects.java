@@ -1,8 +1,9 @@
-package com.github.daggeerok.wipe4j.core.project;
+package com.github.daggeerok.wipe4j.core;
 
 import io.vavr.control.Try;
 import lombok.extern.log4j.Log4j2;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -10,13 +11,27 @@ import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Log4j2
-public class ProjectScanner {
+public class Projects {
+
+  public boolean removeAll(Iterable<Path> paths) {
+    var dryRunProperty = Optional.ofNullable(System.getProperty("wipe4j.dryRun"))
+                                 .orElseThrow(() -> new RuntimeException("missing wipe4j.dryRun system property"));
+    return Boolean.parseBoolean(dryRunProperty)
+        && StreamSupport.stream(paths.spliterator(), false)
+                        .map(path -> Try.run(() -> Files.walk(path)
+                                                        .sorted(Comparator.reverseOrder())
+                                                        .map(Path::toFile)
+                                                        .forEachOrdered(File::delete)))
+                        .filter(Try::isSuccess)
+                        .count() > 0;
+  }
 
   public Collection<Path> findAll(Path... baseDirectories) {
     return Arrays.stream(baseDirectories)
-                 .map(ProjectScanner::find)
+                 .map(Projects::find)
                  .flatMap(Collection::stream)
                  .collect(Collectors.toList());
   }
@@ -43,7 +58,13 @@ public class ProjectScanner {
 
   private static Collection<Path> find(Path baseDir) {
 
+    var exclusionsProperty = Optional.ofNullable(System.getProperty("wipe4j.exclusions"))
+                                     .filter(Predicate.not(String::isBlank))
+                                     .orElse("wipe4j.exclusions is u-n-d-e-f-i-n-e-d");
+    var exclusions = Arrays.asList(exclusionsProperty.split(","));
+
     var list = Try.of(() -> Files.find(baseDir, Integer.MAX_VALUE, searchPredicate)
+                                 .filter(path -> exclusions.stream().noneMatch(path.toFile().getAbsolutePath()::contains))
                                  .sorted(Comparator.comparing(path -> path.toFile().getAbsolutePath()))
                                  .sorted(Comparator.comparing(path -> path.toFile().getAbsolutePath().length()))
                                  .collect(Collectors.toList()))
