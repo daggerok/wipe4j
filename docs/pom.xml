@@ -3,7 +3,7 @@
   <parent>
     <artifactId>wipe4j</artifactId>
     <groupId>com.github.daggerok.wipe4j</groupId>
-    <version>0.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
