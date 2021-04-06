@@ -6,7 +6,7 @@ heroImage: https://v1.vuepress.vuejs.org/hero.png
 tagline: JVM projects cleaner analyzer
 
 actionText: Getting Started →
-actionLink: /guide/
+actionLink: /deploy/
 
 features:
 - title: Search
