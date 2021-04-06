@@ -6,6 +6,11 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)
+        required: false
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -19,7 +24,6 @@ jobs:
           ~/.m2/repository
           !~/.m2/repository/com/gituhb/daggerok
         key: ${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-    - uses: actions/checkout@v2
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
@@ -34,7 +38,9 @@ jobs:
       run: ./mvnw clean
     - name: Run maven tests
       run: ./mvnw test
+  # disable local deploy triggered automatically as not needed
   test-local-deploy:
+    if: github.event.inputs.git-ref != ''
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +52,6 @@ jobs:
           ~/.m2/repository
           !~/.m2/repository/com/gituhb/daggerok
         key: ${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-    - uses: actions/checkout@v2
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
@@ -55,6 +60,28 @@ jobs:
       run: sudo rm -rf ~/.m2/repository/com/github/daggerok
     - name: Deploy maven artifacts locally
       run: ./mvnw -P local-deploy
+  javadoc:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache wipe4j mvn
+      id: wipe4j-mvn
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.m2/repository
+          !~/.m2/repository/com/gituhb/daggerok
+        key: ${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Cleanup local system cache
+      run: sudo rm -rf ~/.m2/repository/com/github/daggerok
+    - name: Install required maven artifacts locally
+      run: ./mvnw -f wipe4j-core clean install
+    - name: Build javadoc
+      run: ./mvnw javadoc:javadoc
   docs:
     runs-on: ubuntu-latest
     steps:
@@ -67,7 +94,6 @@ jobs:
           ~/.m2/repository
           !~/.m2/repository/com/gituhb/daggerok
         key: ${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-    - uses: actions/checkout@v2
     - name: Cache wipe4j npm
       id: wipe4j-npm
       uses: actions/cache@v2
