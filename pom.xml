@@ -37,7 +37,7 @@
     <module>docs</module>
     <module>wipe4j-core</module>
     <module>wipe4j-cli</module>
-    <!--<module>wipe4j-maven-plugin</module>-->
+    <module>wipe4j-maven-plugin</module>
   </modules>
   <properties>
     <encoding>UTF-8</encoding>
