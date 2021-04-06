@@ -37,7 +37,7 @@
     <module>docs</module>
     <module>wipe4j-core</module>
     <module>wipe4j-cli</module>
-    <!--<module>wipe4j-maven-plugin</module>-->
+    <module>wipe4j-maven-plugin</module>
   </modules>
   <properties>
     <encoding>UTF-8</encoding>
@@ -45,6 +45,7 @@
     <vavr.version>0.10.3</vavr.version>
     <picocli.version>4.6.1</picocli.version>
     <spring-boot.version>2.4.4</spring-boot.version>
+    <maven-plugin-plugin.version>3.2</maven-plugin-plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
@@ -52,7 +53,6 @@
     <frontend-maven-plugin.version>1.11.3</frontend-maven-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-    <maven-scm-publish-plugin.version>3.1.0</maven-scm-publish-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
