@@ -49,6 +49,7 @@
     <frontend-maven-plugin.version>1.11.3</frontend-maven-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+    <maven-scm-publish-plugin.version>3.1.0</maven-scm-publish-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -167,6 +168,38 @@
           <id>local-maven-repo</id>
           <url>file://${maven.multiModuleProjectDirectory}/target/.m2/repository</url>
         </repository>
+      </distributionManagement>
+    </profile>
+    <profile>
+      <id>github-deploy</id>
+      <build>
+        <!--
+        at first time:
+        1) cp .mvn/settings.template.xml .mvn/settings.xml and update it accordingly
+        2) on github project repo create maven branch to be used for publishing artifacts
+        ./mvnw -P local-deploy ; ./mvnw -P github-deploy -s .mvn/settings.xml -pl :wipe4j-cli
+        -->
+        <defaultGoal>scm-publish:publish-scm</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-publish-plugin</artifactId>
+            <version>${maven-scm-publish-plugin.version}</version>
+            <configuration>
+              <content>${maven.multiModuleProjectDirectory}/target/.m2/repository/</content>
+              <!--<includes>**/*.*</includes>-->
+              <skipDeletedFiles>true</skipDeletedFiles>
+              <scmBranch>maven</scmBranch>
+              <tryUpdate>true</tryUpdate>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <distributionManagement>
+        <site>
+          <id>daggerok-github</id>
+          <url>${project.scm.developerConnection}</url>
+        </site>
       </distributionManagement>
     </profile>
   </profiles>
